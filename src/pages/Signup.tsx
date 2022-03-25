@@ -1,0 +1,70 @@
+import {
+  Button,
+  Container,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useSnackbar } from "notistack";
+import { useState } from "react";
+import { UsuarioForm } from "../components/UsuarioForm";
+import { Usuario } from "../models/Usuario";
+import { salvarUsuario } from "../services/usuarioService";
+import { useNavigate } from "react-router-dom";
+
+export const SignUpPage: React.FC = ({}) => {
+  const [usuario, setUsuario] = useState<Usuario>({
+    nome: "",
+    email: "",
+    senha: "",
+  } as Usuario);
+  const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
+
+  return (
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "#2c3e50",
+      }}
+    >
+      <Paper
+        component={Stack}
+        direction="column"
+        justifyContent="center"
+        spacing={2}
+        sx={{ p: 3, width: "50vw" }}
+        elevation={10}
+      >
+        <Typography>Cadastre-se</Typography>
+        <UsuarioForm usuario={usuario} setUsuario={setUsuario} />
+        <Button
+          variant="contained"
+          onClick={() =>
+            salvarUsuario(usuario)
+              .then(() => {
+                enqueueSnackbar("Usuario cadastrado com sucesso!", {
+                  variant: "success",
+                });
+                navigate("/login");
+              })
+              .catch(() =>
+                enqueueSnackbar(
+                  "Ocorreu um erro ao cadastrar seu usuário, verifique se os campos estão preenchidos corretamente.",
+                  {
+                    variant: "error",
+                  }
+                )
+              )
+          }
+        >
+          Cadastrar
+        </Button>
+      </Paper>
+    </div>
+  );
+};

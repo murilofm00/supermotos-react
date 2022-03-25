@@ -1,11 +1,34 @@
 import { Button, Paper, Stack, TextField, Typography } from "@mui/material";
+import { useSnackbar } from "notistack";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../Context/AuthContext";
 
 export const LoginPage: React.FC = ({}) => {
   const { login } = useAuthContext();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const navigate = useNavigate();
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  function doLogin() {
+    login(email, senha)
+      .then(() => {
+        enqueueSnackbar("Login realizado com sucesso!", {
+          variant: "success",
+        });
+        navigate("/");
+      })
+      .catch(() =>
+        enqueueSnackbar(
+          "Ocorreu um erro ao logar, verifique seu email e senha.",
+          {
+            variant: "error",
+          }
+        )
+      );
+  }
 
   return (
     <div
@@ -42,8 +65,11 @@ export const LoginPage: React.FC = ({}) => {
           value={senha}
           onChange={(event) => setSenha(event.target.value)}
         />
-        <Button variant="contained" onClick={() => login(email, senha)}>
+        <Button variant="contained" onClick={doLogin}>
           Login
+        </Button>
+        <Button size="small" onClick={() => navigate("/signup")}>
+          Criar conta
         </Button>
       </Paper>
     </div>
