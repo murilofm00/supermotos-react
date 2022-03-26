@@ -1,9 +1,7 @@
-import { useState } from "react";
-import { ResponsiveAppBar } from "./components/AppBar";
-import logo from "./logo.svg";
-import "./App.css";
-import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
+import { ResponsiveAppBar } from "./components/AppBar";
 
 function App() {
   const [count, setCount] = useState(0);
