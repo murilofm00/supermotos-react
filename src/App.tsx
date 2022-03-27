@@ -4,8 +4,6 @@ import { Outlet } from "react-router-dom";
 import { ResponsiveAppBar } from "./components/AppBar";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
       <ResponsiveAppBar />

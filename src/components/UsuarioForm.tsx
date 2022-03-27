@@ -1,5 +1,4 @@
 import { TextField } from "@mui/material";
-import { useState } from "react";
 import { Usuario } from "../models/Usuario";
 
 interface UsuarioFormProps {
@@ -18,7 +17,6 @@ export const UsuarioForm: React.FC<UsuarioFormProps> = ({
   return (
     <>
       <TextField
-        id="outlined-basic"
         label="Nome"
         variant="outlined"
         type="text"
@@ -26,7 +24,6 @@ export const UsuarioForm: React.FC<UsuarioFormProps> = ({
         onChange={(event) => atualizarUsuario("nome", event.target.value)}
       />
       <TextField
-        id="outlined-basic"
         label="Email"
         variant="outlined"
         type="email"
@@ -34,7 +31,6 @@ export const UsuarioForm: React.FC<UsuarioFormProps> = ({
         onChange={(event) => atualizarUsuario("email", event.target.value)}
       />
       <TextField
-        id="outlined-basic"
         label="Senha"
         variant="outlined"
         type="password"

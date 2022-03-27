@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { Usuario } from "../models/Usuario";
 import api from "../services/api";
 import jwt_decode from "jwt-decode";
+import { CircularProgress } from "@mui/material";
 
 interface AuthProviderProps {
   isLogado: boolean;
@@ -12,12 +13,13 @@ interface AuthProviderProps {
 
 const AuthContext = createContext<AuthProviderProps>({} as AuthProviderProps);
 
-function setApiAuthToken(token: string) {
-  api.defaults.headers.common.Authorization = `Bearer ${token}`;
-}
-
 export const AuthProvider: React.FC = ({ children }) => {
+  function setApiAuthToken(token: string) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
+
   const [usuario, setUsuario] = useState<Usuario | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const storageUsuario = sessionStorage.getItem("@App:usuario");
@@ -27,6 +29,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       setUsuario(JSON.parse(storageUsuario));
       setApiAuthToken(storageToken);
     }
+    setLoading(false);
   }, []);
 
   async function login(email: string, senha: string) {
@@ -57,7 +60,21 @@ export const AuthProvider: React.FC = ({ children }) => {
     <AuthContext.Provider
       value={{ isLogado: !!usuario, login, logout, usuario }}
     >
-      {children}
+      {loading ? (
+        <div
+          style={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "#2c3e50",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };

@@ -50,7 +50,6 @@ export const LoginPage: React.FC = ({}) => {
       >
         <Typography>Login</Typography>
         <TextField
-          id="outlined-basic"
           label="Email"
           variant="outlined"
           type="email"
@@ -58,7 +57,6 @@ export const LoginPage: React.FC = ({}) => {
           onChange={(event) => setEmail(event.target.value)}
         />
         <TextField
-          id="outlined-basic"
           label="Senha"
           variant="outlined"
           type="password"

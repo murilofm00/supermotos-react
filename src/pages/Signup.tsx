@@ -10,7 +10,7 @@ import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { UsuarioForm } from "../components/UsuarioForm";
 import { Usuario } from "../models/Usuario";
-import { salvarUsuario } from "../services/usuarioService";
+import { adicionarUsuario } from "../services/usuarioService";
 import { useNavigate } from "react-router-dom";
 
 export const SignUpPage: React.FC = ({}) => {
@@ -45,7 +45,7 @@ export const SignUpPage: React.FC = ({}) => {
         <Button
           variant="contained"
           onClick={() =>
-            salvarUsuario(usuario)
+            adicionarUsuario(usuario)
               .then(() => {
                 enqueueSnackbar("Usuario cadastrado com sucesso!", {
                   variant: "success",
