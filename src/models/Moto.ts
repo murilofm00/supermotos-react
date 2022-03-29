@@ -1,5 +1,6 @@
 import { BaseModel } from "./BaseModel";
 import { Categoria } from "./Categoria";
+import { Comentario } from "./Comentario";
 import { Marca } from "./Marca";
 
 export class Moto extends BaseModel {
@@ -12,4 +13,5 @@ export class Moto extends BaseModel {
   idMarca!: number;
   categoria?: Categoria;
   marca?: Marca;
+  comentarios?: Comentario[];
 }

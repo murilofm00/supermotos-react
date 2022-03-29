@@ -12,135 +12,74 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
-
-const pages = ["Motos"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import { useAuthContext } from "../Context/AuthContext";
 
 export const ResponsiveAppBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
-
   const navigate = useNavigate();
+  const { isLogado, usuario, logout } = useAuthContext();
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  function handleClickMenu(event: React.MouseEvent<HTMLDivElement>) {
+    setAnchorEl(event.currentTarget);
+  }
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  function handleCloseMenu() {
+    setAnchorEl(null);
+  }
+
+  function navegarMenu(path: string) {
+    navigate(path);
+    handleCloseMenu();
+  }
+
+  function onClickLogout() {
+    logout();
+    handleCloseMenu();
+  }
 
   return (
     <AppBar position="static" style={{ backgroundColor: "#2c3e50" }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+      <Container>
+        <Toolbar>
           <Typography
             variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            sx={{ flexGrow: 1, cursor: "pointer" }}
             onClick={() => navigate("/")}
           >
-            SUPERMOTOS
+            SUPER MOTOS
           </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-            onClick={() => navigate("/")}
-          >
-            SUPERMOTOS
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+          {isLogado ? (
+            <>
+              <Avatar alt={usuario?.nome} onClick={handleClickMenu}>
+                {usuario?.nome[0]}
+              </Avatar>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleCloseMenu}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
               >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Murilo Fernandes" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem onClick={() => navegarMenu("/perfil")}>
+                  Perfil
                 </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+                {usuario?.isAdmin && (
+                  <MenuItem onClick={() => navegarMenu("admin")}>
+                    Painel Administrativo
+                  </MenuItem>
+                )}
+                <MenuItem onClick={() => onClickLogout()}>Logout</MenuItem>
+              </Menu>
+            </>
+          ) : (
+            <Button color="inherit" onClick={() => navegarMenu("/login")}>
+              Login
+            </Button>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

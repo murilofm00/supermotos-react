@@ -1,25 +1,14 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Usuario } from "../../models/Usuario";
-import {
-  adicionarUsuario,
-  atualizarUsuario,
-  getUsuario,
-} from "../../services/usuarioService";
-import {
-  Alert,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  Switch,
-  Typography,
-} from "@mui/material";
-import { UsuarioForm } from "../../components/UsuarioForm";
+import { Alert, Button, Container, Stack, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { Moto } from "../../models/Moto";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { MotoForm } from "../../components/MotoForm";
-import { getMoto } from "../../services/motoService";
+import { Moto } from "../../models/Moto";
+import {
+  adicionarMoto,
+  atualizarMoto,
+  getMoto,
+} from "../../services/motoService";
 
 interface EditarUsuarioPageProps {
   tipo: "add" | "edit";
@@ -27,7 +16,9 @@ interface EditarUsuarioPageProps {
 
 export const EditarMotoPage: React.FC<EditarUsuarioPageProps> = ({ tipo }) => {
   const motoId = parseInt(useParams().motoId as string);
+
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   const [moto, setMoto] = useState<Moto>(
     (): Moto =>
@@ -50,39 +41,40 @@ export const EditarMotoPage: React.FC<EditarUsuarioPageProps> = ({ tipo }) => {
   }, []);
 
   function salvar() {
-    // if (moto) {
-    //   if (tipo === "add") {
-    //     adicionarUsuario(moto)
-    //       .then(({ data }) => {
-    //         if (data.id) {
-    //           enqueueSnackbar("Usuario adicionado.", {
-    //             variant: "success",
-    //           });
-    //           setMoto(data);
-    //         }
-    //       })
-    //       .catch(() => {
-    //         enqueueSnackbar("Erro ao adicionar o usuario, tente novamente.", {
-    //           variant: "error",
-    //         });
-    //       });
-    //   } else if (tipo === "edit") {
-    //     atualizarUsuario(motoId, usuario)
-    //       .then(({ data }) => {
-    //         if (data.id) {
-    //           enqueueSnackbar("Usuario atualizado.", {
-    //             variant: "success",
-    //           });
-    //           setMoto(data);
-    //         }
-    //       })
-    //       .catch(() => {
-    //         enqueueSnackbar("Erro ao atualizar o usuario, tente novamente.", {
-    //           variant: "error",
-    //         });
-    //       });
-    //   }
-    // }
+    if (moto) {
+      if (tipo === "add") {
+        adicionarMoto(moto)
+          .then(({ data }) => {
+            if (data.id) {
+              enqueueSnackbar("Moto adicionada.", {
+                variant: "success",
+              });
+              setMoto(data);
+              navigate(`/admin/motos/edit/${data.id}`);
+            }
+          })
+          .catch(() => {
+            enqueueSnackbar("Erro ao adicionar a moto, tente novamente.", {
+              variant: "error",
+            });
+          });
+      } else if (tipo === "edit") {
+        atualizarMoto(motoId, moto)
+          .then(({ data }) => {
+            if (data.id) {
+              enqueueSnackbar("Moto atualizada.", {
+                variant: "success",
+              });
+              setMoto(data);
+            }
+          })
+          .catch(() => {
+            enqueueSnackbar("Erro ao atualizar a moto, tente novamente.", {
+              variant: "error",
+            });
+          });
+      }
+    }
   }
 
   return (
@@ -96,14 +88,14 @@ export const EditarMotoPage: React.FC<EditarUsuarioPageProps> = ({ tipo }) => {
           <Button variant="contained" onClick={salvar}>
             Salvar
           </Button>
-          <Button component={Link} to="/admin/usuarios">
+          <Button component={Link} to="/admin/motos">
             Voltar
           </Button>
         </>
       ) : (
         <>
           <Alert severity="error">Selecione um usuário válido.</Alert>
-          <Button component={Link} to="/admin/usuarios" variant="contained">
+          <Button component={Link} to="/admin/motos" variant="contained">
             Voltar
           </Button>
         </>

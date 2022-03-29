@@ -1,8 +1,16 @@
-import { Delete, Edit, MoreVert } from "@mui/icons-material";
-import { IconButton, List, ListItem, Stack, Typography } from "@mui/material";
+import { AddCircleOutline, Delete, Edit, MoreVert } from "@mui/icons-material";
+import {
+  Button,
+  Container,
+  IconButton,
+  List,
+  ListItem,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { Moto } from "../../models/Moto";
 import { excluirMoto, listarMotos } from "../../services/motoService";
@@ -49,7 +57,16 @@ export const EditarMotosPage: React.FC = ({}) => {
   }
 
   return (
-    <>
+    <Container>
+      <Typography variant="h5">Motos</Typography>
+      <Button
+        variant="contained"
+        sx={{ my: 2 }}
+        startIcon={<AddCircleOutline />}
+        onClick={() => navigate("add")}
+      >
+        Adicionar
+      </Button>
       <List>
         {motos.map((moto) => {
           return (
@@ -83,6 +100,6 @@ export const EditarMotosPage: React.FC = ({}) => {
         text={`Deseja remover a seguinte moto: ${selectedMoto?.marca?.descricao} - ${selectedMoto?.nome}`}
         onCloseModal={onCloseModal}
       />
-    </>
+    </Container>
   );
 };

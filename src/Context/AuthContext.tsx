@@ -15,7 +15,11 @@ const AuthContext = createContext<AuthProviderProps>({} as AuthProviderProps);
 
 export const AuthProvider: React.FC = ({ children }) => {
   function setApiAuthToken(token: string) {
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    if (token === "") {
+      api.defaults.headers.common["Authorization"] = "";
+    } else {
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
   }
 
   const [usuario, setUsuario] = useState<Usuario | null>(null);
@@ -54,6 +58,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     setUsuario(null);
     sessionStorage.removeItem("@App:usuario");
     sessionStorage.removeItem("@App:token");
+    setApiAuthToken("");
   }
 
   return (
