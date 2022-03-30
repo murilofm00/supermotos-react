@@ -11,27 +11,45 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../Context/AuthContext";
+import { Stack } from "@mui/material";
 
 export const ResponsiveAppBar = () => {
   const navigate = useNavigate();
   const { isLogado, usuario, logout } = useAuthContext();
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+  const [anchorElMenu, setAnchorElMenu] = React.useState<null | HTMLElement>(
+    null
+  );
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null
+  );
 
-  function handleClickMenu(event: React.MouseEvent<HTMLDivElement>) {
-    setAnchorEl(event.currentTarget);
+  function handleClickMenu(event: React.MouseEvent<HTMLElement>) {
+    setAnchorElMenu(event.currentTarget);
+  }
+
+  function handleClickNav(event: React.MouseEvent<HTMLElement>) {
+    setAnchorElNav(event.currentTarget);
   }
 
   function handleCloseMenu() {
-    setAnchorEl(null);
+    setAnchorElMenu(null);
+  }
+
+  function handleCloseNav() {
+    setAnchorElNav(null);
   }
 
   function navegarMenu(path: string) {
     navigate(path);
     handleCloseMenu();
+  }
+
+  function navegarNav(path: string) {
+    navigate(path);
+    handleCloseNav();
   }
 
   function onClickLogout() {
@@ -43,13 +61,65 @@ export const ResponsiveAppBar = () => {
     <AppBar position="static" style={{ backgroundColor: "#2c3e50" }}>
       <Container>
         <Toolbar>
+          <IconButton
+            sx={{ mr: 1, display: { xs: "flex", md: "none" } }}
+            color="inherit"
+            onClick={handleClickNav}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            anchorEl={anchorElNav}
+            open={Boolean(anchorElNav)}
+            onClose={handleCloseNav}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={() => navegarMenu("/")}>Motos</MenuItem>
+            <MenuItem onClick={() => navegarMenu("/sobre")}>Sobre</MenuItem>
+            <MenuItem onClick={() => navegarMenu("/contato")}>Contato</MenuItem>
+          </Menu>
           <Typography
             variant="h6"
-            sx={{ flexGrow: 1, cursor: "pointer" }}
+            sx={{ cursor: "pointer" }}
             onClick={() => navigate("/")}
           >
             SUPER MOTOS
           </Typography>
+          <Stack
+            direction={"row"}
+            spacing={2}
+            sx={{
+              ml: 2,
+              // flexGrow: 1,
+              color: "gray",
+              display: { xs: "none", md: "flex" },
+            }}
+          >
+            <Button
+              variant="text"
+              sx={{ color: "#dfdfdf" }}
+              onClick={() => navigate("/")}
+            >
+              MOTOS
+            </Button>
+            <Button
+              variant="text"
+              sx={{ color: "#dfdfdf" }}
+              onClick={() => navigate("/sobre")}
+            >
+              SOBRE
+            </Button>
+            <Button
+              variant="text"
+              sx={{ color: "#dfdfdf" }}
+              onClick={() => navigate("/contato")}
+            >
+              CONTATO
+            </Button>
+          </Stack>
+          <Box id="spacer" sx={{ display: "flex", flexGrow: 1 }} />
           {isLogado ? (
             <>
               <Avatar alt={usuario?.nome} onClick={handleClickMenu}>
@@ -57,8 +127,8 @@ export const ResponsiveAppBar = () => {
               </Avatar>
               <Menu
                 id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
+                anchorEl={anchorElMenu}
+                open={Boolean(anchorElMenu)}
                 onClose={handleCloseMenu}
                 MenuListProps={{
                   "aria-labelledby": "basic-button",

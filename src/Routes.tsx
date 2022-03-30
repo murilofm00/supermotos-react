@@ -10,10 +10,12 @@ import { EditarMotosPage } from "./pages/Admin/EditarMotos";
 import { EditarUsuarioPage } from "./pages/Admin/EditarUsuario";
 import { EditarUsuariosPage } from "./pages/Admin/EditarUsuarios";
 import { ComentariosPage } from "./pages/Comentarios";
+import { ContatoPage } from "./pages/Contato";
 import { Home } from "./pages/Home";
 import { LoginPage } from "./pages/Login";
 import { PerfilPage } from "./pages/Perfil";
 import { SignUpPage } from "./pages/Signup";
+import { SobrePage } from "./pages/Sobre";
 
 function AppRoutes() {
   return (
@@ -25,6 +27,8 @@ function AppRoutes() {
               <Route path="" element={<Home />} />
               <Route path="comentarios/:motoId" element={<ComentariosPage />} />
               <Route path="perfil" element={<PerfilPage />} />
+              <Route path="sobre" element={<SobrePage />} />
+              <Route path="contato" element={<ContatoPage />} />
 
               <Route path="admin" element={<AdminPage />}>
                 <Route path="motos" element={<EditarMotosPage />} />
