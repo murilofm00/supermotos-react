@@ -1,17 +1,10 @@
-import {
-  Button,
-  Container,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Paper, Stack, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { UsuarioForm } from "../components/UsuarioForm";
 import { Usuario } from "../models/Usuario";
 import { adicionarUsuario } from "../services/usuarioService";
-import { useNavigate } from "react-router-dom";
 
 export const SignUpPage: React.FC = ({}) => {
   const [usuario, setUsuario] = useState<Usuario>({

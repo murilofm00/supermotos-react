@@ -1,26 +1,15 @@
-import { Image } from "@mui/icons-material";
 import {
-  Box,
-  Button,
   FormControl,
   Grid,
-  Input,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from "@mui/material";
-import { height } from "@mui/system";
-import {
-  ChangeEventHandler,
-  HTMLInputTypeAttribute,
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import { Categoria } from "../models/Categoria";
 import { Marca } from "../models/Marca";
 import { Moto } from "../models/Moto";
-import { Usuario } from "../models/Usuario";
 import { listarCategorias } from "../services/categoriaService";
 import { listarMarcas } from "../services/marcaService";
 

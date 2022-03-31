@@ -1,8 +1,8 @@
+import { CircularProgress } from "@mui/material";
+import jwt_decode from "jwt-decode";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Usuario } from "../models/Usuario";
 import api from "../services/api";
-import jwt_decode from "jwt-decode";
-import { CircularProgress } from "@mui/material";
 
 interface AuthProviderProps {
   isLogado: boolean;

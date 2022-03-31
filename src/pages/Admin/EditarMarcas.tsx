@@ -12,7 +12,6 @@ import {
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Marca } from "../../models/Marca";
-// import { Marca } from "../../models/Marca";
 import {
   adicionarMarca,
   atualizarMarca,

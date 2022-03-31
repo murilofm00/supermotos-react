@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { Usuario } from "../../models/Usuario";
 import { excluirUsuario, listarUsuarios } from "../../services/usuarioService";

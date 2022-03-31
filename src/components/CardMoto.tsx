@@ -1,12 +1,4 @@
-import { Comment } from "@mui/icons-material";
-import {
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { Moto } from "../models/Moto";
 
 interface CardMotoProps {

@@ -1,7 +1,7 @@
 import { SnackbarProvider } from "notistack";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
-import { AuthProvider, useAuthContext } from "./Context/AuthContext";
+import { AuthProvider } from "./Context/AuthContext";
 import { AdminPage } from "./pages/Admin/Admin";
 import { EditarCategoriasPage } from "./pages/Admin/EditarCategorias";
 import { EditarMarcasPage } from "./pages/Admin/EditarMarcas";

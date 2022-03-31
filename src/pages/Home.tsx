@@ -1,6 +1,5 @@
 import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
-import { FiltrosMoto } from "../components/FiltrosMoto";
 import { ListMotos } from "../components/ListMotos";
 import { Moto } from "../models/Moto";
 import { listarMotos } from "../services/motoService";

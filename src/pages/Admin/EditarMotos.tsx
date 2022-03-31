@@ -1,16 +1,15 @@
-import { AddCircleOutline, Delete, Edit, MoreVert } from "@mui/icons-material";
+import { AddCircleOutline, Delete, Edit } from "@mui/icons-material";
 import {
   Button,
   Container,
   IconButton,
   List,
   ListItem,
-  Stack,
   Typography,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ConfirmDialog } from "../../components/ConfirmDialog";
 import { Moto } from "../../models/Moto";
 import { excluirMoto, listarMotos } from "../../services/motoService";

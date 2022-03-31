@@ -1,22 +1,21 @@
+import {
+  Alert,
+  Button,
+  Container,
+  Stack,
+  Switch,
+  Typography,
+} from "@mui/material";
+import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { UsuarioForm } from "../../components/UsuarioForm";
 import { Usuario } from "../../models/Usuario";
 import {
   adicionarUsuario,
   atualizarUsuario,
   getUsuario,
 } from "../../services/usuarioService";
-import {
-  Alert,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  Switch,
-  Typography,
-} from "@mui/material";
-import { UsuarioForm } from "../../components/UsuarioForm";
-import { useSnackbar } from "notistack";
 
 interface EditarUsuarioPageProps {
   tipo: "add" | "edit";
