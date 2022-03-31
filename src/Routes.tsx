@@ -7,6 +7,7 @@ import { EditarCategoriasPage } from "./pages/Admin/EditarCategorias";
 import { EditarMarcasPage } from "./pages/Admin/EditarMarcas";
 import { EditarMotoPage } from "./pages/Admin/EditarMoto";
 import { EditarMotosPage } from "./pages/Admin/EditarMotos";
+import { EditarSobrePage } from "./pages/Admin/EditarSobre";
 import { EditarUsuarioPage } from "./pages/Admin/EditarUsuario";
 import { EditarUsuariosPage } from "./pages/Admin/EditarUsuarios";
 import { ComentariosPage } from "./pages/Comentarios";
@@ -44,8 +45,8 @@ function AppRoutes() {
                   path="categorias"
                   element={<EditarCategoriasPage />}
                 ></Route>
-                <Route path="marcas" element={<EditarMarcasPage />}></Route>
-
+                <Route path="marcas" element={<EditarMarcasPage />} />
+                <Route path="sobre" element={<EditarSobrePage />} />
                 <Route path="usuarios" element={<EditarUsuariosPage />} />
                 <Route
                   path="usuarios/edit/:usuarioId"

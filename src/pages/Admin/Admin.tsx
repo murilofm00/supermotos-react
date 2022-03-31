@@ -1,4 +1,4 @@
-import { Category, Label, Person, TwoWheeler } from "@mui/icons-material";
+import { Category, Info, Label, Person, TwoWheeler } from "@mui/icons-material";
 import {
   Box,
   Container,
@@ -33,6 +33,10 @@ export const AdminPage: React.FC = ({}) => {
           <Divider />
           <ListItem button onClick={() => navigate("marcas")}>
             <Label sx={{ mr: 2 }} /> Marcas
+          </ListItem>
+          <Divider />
+          <ListItem button onClick={() => navigate("sobre")}>
+            <Info sx={{ mr: 2 }} /> Sobre a empresa
           </ListItem>
         </List>
       </Container>
