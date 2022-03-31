@@ -10,6 +10,7 @@ import { EditarMotosPage } from "./pages/Admin/EditarMotos";
 import { EditarSobrePage } from "./pages/Admin/EditarSobre";
 import { EditarUsuarioPage } from "./pages/Admin/EditarUsuario";
 import { EditarUsuariosPage } from "./pages/Admin/EditarUsuarios";
+import { BannerPage } from "./pages/Banner";
 import { ComentariosPage } from "./pages/Comentarios";
 import { ContatoPage } from "./pages/Contato";
 import { Home } from "./pages/Home";
@@ -25,7 +26,8 @@ function AppRoutes() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />}>
-              <Route path="" element={<Home />} />
+              <Route path="" element={<BannerPage />} />
+              <Route path="motos" element={<Home />} />
               <Route path="comentarios/:motoId" element={<ComentariosPage />} />
               <Route path="perfil" element={<PerfilPage />} />
               <Route path="sobre" element={<SobrePage />} />

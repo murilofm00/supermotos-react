@@ -75,7 +75,7 @@ export const ResponsiveAppBar = () => {
               "aria-labelledby": "basic-button",
             }}
           >
-            <MenuItem onClick={() => navegarMenu("/")}>Motos</MenuItem>
+            <MenuItem onClick={() => navegarMenu("/motos")}>Motos</MenuItem>
             <MenuItem onClick={() => navegarMenu("/sobre")}>Sobre</MenuItem>
             <MenuItem onClick={() => navegarMenu("/contato")}>Contato</MenuItem>
           </Menu>
@@ -99,7 +99,7 @@ export const ResponsiveAppBar = () => {
             <Button
               variant="text"
               sx={{ color: "#dfdfdf" }}
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/motos")}
             >
               MOTOS
             </Button>
